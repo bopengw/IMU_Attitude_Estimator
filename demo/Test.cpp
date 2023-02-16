@@ -20,7 +20,7 @@ namespace plt = matplotlibcpp;
 int main(int argc, char **argv)
 {
 	Eigen::MatrixXd data, measurements, groundtruth;
-    data =IMU::readFromfile("./datasets/NAV2_data.bin");
+    data =IMU::readFromfile("../datasets/NAV2_data.bin");
     if(data.isZero())
         return 0;
 
@@ -84,14 +84,19 @@ int main(int argc, char **argv)
 	} while (i<measurements.rows());
 
 	cout << tc.toc() << "ms" << endl;
-	writeTofile(Euler, "Euler.bin");
+	writeTofile(Euler, "ekf.txt");
+    writeTofile(Euler1, "mahony.txt");
+    writeTofile(Euler2, "eskf.txt");
+    writeTofile(groundtruth, "groundtruth.txt");
 
-    plt::named_plot("EKF", Index, Pitch, "b");
-    plt::named_plot("ESKF", Index, Pitch2, "g");
-    plt::named_plot("Groundtruth", Index, Pitch_gt, "r");
+//    plt::named_plot("EKF", Index, Pitch, "b");
+//    plt::named_plot("ESKF", Index, Pitch2, "g");
+//    plt::named_plot("Groundtruth", Index, Pitch_gt, "r");
     //plt::named_plot("aa", Index, Yaw, "b");
-
-	plt::xlim(0, 1000*20);
+    plt::plot(Index, Pitch1, "r");
+//    plt::plot(Index,Pitch, "g");
+//    plt::plot(Index, Pitch_gt, "r");
+//	plt::xlim(0, 1000*20);
 
     plt::title("Yaw-Comparision");
     plt::legend();

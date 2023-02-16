@@ -321,20 +321,20 @@ Eigen::Quaterniond ESKF_Attitude::Run(Vector_9 measurement)
             Reset_ErrorState();
         }
 
-        if (Stop())
-        {
-            while (isStopped())
-            {
-#ifdef _WIN32
-
-                Sleep(3);
-#else
-
-                usleep(3000);
-#endif
-
-            }
-        }
+//        if (Stop())
+//        {
+//            while (isStopped())
+//            {
+//#ifdef _WIN32
+//
+//                Sleep(3);
+//#else
+//
+//                usleep(3000);
+//#endif
+//
+//            }
+//        }
         return quaternion.back();
     }
 
